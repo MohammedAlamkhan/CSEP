@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypt Content</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <h2>Encrypt Your Content</h2>
+    <textarea id="plaintext" placeholder="Enter text to encrypt" rows="4" cols="50"></textarea><br>
+    <input type="password" id="password" placeholder="Enter password"><br>
+    <button onclick="encryptContent()">Encrypt</button>
+    
+    <h3>Encrypted Content:</h3>
+    <textarea id="encryptedOutput" rows="4" cols="50" readonly></textarea>
+
+    <script>
+        function encryptContent() {
+            const plaintext = document.getElementById("plaintext").value;
+            const password = document.getElementById("password").value;
+            if (!plaintext || !password) {
+                alert("Please enter text and password.");
+                return;
+            }
+            const encrypted = CryptoJS.AES.encrypt(plaintext, password).toString();
+            document.getElementById("encryptedOutput").value = encrypted;
+        }
+    </script>
+</body>
+</html>

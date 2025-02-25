@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Content</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        #content { display: none; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2 id="label" >Enter Password to View Content</h2>
+    <input type="password" id="password" placeholder="Enter password">
+    <button id="button" onclick="decryptContent()">Submit</button>
+    
+    <div id="content"></div>
+    
+    <script>
+        const encryptedContent = "U2FsdGVkX18DOUOM/xiJOr1oTctaVZw4baeDaqq5OXlSQm/am5EtZwwb0Du/+3qmN0gYwqF3DOE8Z2T67cRWVMEKj9wWrHdD+0//cIs9JNZoGJ9Ni4+2Kwkecqd96CCdBk3SMDtQuYFLk5vyOibe/xS8VysPtXRMy7qsgUEfE6g="; // Replace with your encrypted content
+        
+        function decryptContent() {
+            const password = document.getElementById("password").value;
+            try {
+                const decrypted = CryptoJS.AES.decrypt(encryptedContent, password).toString(CryptoJS.enc.Utf8);
+                if (!decrypted) throw new Error("Invalid Password");
+                document.getElementById("content").innerHTML = decrypted;
+                document.getElementById("content").style.display = "block";
+                document.getElementById("password").style.display = "none";
+                document.getElementById("label").style.display = "none";
+                document.getElementById("button").style.display = "none";
+            } catch (error) {
+                alert("Incorrect password or decryption error");
+            }
+        }
+    </script>
+</body>
+</html>
